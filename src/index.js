@@ -10,12 +10,12 @@ mongoose.connect(process.env.MONGODB_URI ||
   logger.info('mongoose is connected');
 });
 
-const port = process.env.PORT;
+const port = process.env.PORT || 8008;
 const app = express();
 
 app.use(helmet());
 
-const server = app.listen(port || 8008, () => {
+const server = app.listen(port, () => {
   logger.info('Server is listening on port', port);
 });
 
