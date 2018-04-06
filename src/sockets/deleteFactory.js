@@ -1,4 +1,5 @@
-import FactoryModel from '../db/models/factory';
+import logger from '../logger';
+import FactoryModel from '../db';
 
 /**
  * Deletes a factory, and emites a successful response
@@ -15,8 +16,9 @@ export default (client, id) => {
     if (factory) {
       FactoryModel.remove({ _id: id }, (err) => {
         if (err) return client.emit('factoryError', 'An error occurred while deleting factory');
-    
-        return client.emit('factoryDeleted', 'Factory successfully removed');
+
+        logger.info('Emitting deleted factory');
+        return client.emit('factoryDeleted', id);
       });
     }
   });

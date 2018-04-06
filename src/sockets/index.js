@@ -16,13 +16,13 @@ const clientFactory = client => ({
   allFactoryController: _.partial(allFactoryController, client),
 });
 
-export default (client) => {
+export default (socketServer, client) => {
   const {
     addFactory,
     deleteFactory,
     updateFactory,
     allFactoryController,
-  } = clientFactory(client); 
+  } = clientFactory(socketServer); 
 
   client.on('allFactories', allFactoryController);
   client.on('addFactory', addFactory);

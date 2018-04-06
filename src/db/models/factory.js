@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
+/**
+ * MongoDB Factory schema
+ */
 const factorySchema = new Schema({
   name: {
     type: String,

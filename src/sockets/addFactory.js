@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import FactoryModel from '../db/models/factory';
+import logger from '../logger';
+import FactoryModel from '../db';
 
 /**
  * Adds a factory, and emites a successful response
@@ -19,11 +20,14 @@ export default (client, factory) => {
       ...parsedFactory
     });
 
+    logger.info('Created new factory');
+
     factory.save((err, savedFactory) => {
       if (err) {
         return client.emit('factoryError', 'Error occurred while saving factory');
       }
 
+      logger.info('Emitted newly created factory');
       return client.emit('factoryAdded', factory);
     });
   });

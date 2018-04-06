@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import FactoryModel from '../db/models/factory';
+import logger from '../logger';
+import FactoryModel from '../db';
 
 /**
  * Updates a factory, and emits a result
@@ -16,10 +17,11 @@ export default (client, factory) => {
     if (factory) {
       const newFactory = _.assign(factory, parsedFactory);
 
-      newFactory.save((err, savedFactory) => {
+      newFactory.save((err, updatedFactory) => {
         if (err) return client.emit('factoryError', 'Error occurred while updating factory');
   
-        return client.emit('factoryUpdated', savedFactory);
+        logger.info('Emitting updated factory');
+        return client.emit('factoryUpdated', updatedFactory);
       });
     }
   });
