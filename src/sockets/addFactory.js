@@ -22,7 +22,7 @@ export default (client, factory) => {
 
     logger.info('Created new factory');
 
-    factory.save((err, savedFactory) => {
+    factory.save((err) => {
       if (err) {
         return client.emit('factoryError', 'Error occurred while saving factory');
       }
