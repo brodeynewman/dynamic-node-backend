@@ -7,22 +7,21 @@ import FactoryModel from '../db';
  */
 export default (client, factory) => {
   const parsedFactory = JSON.parse(factory);
-  const { 
+  const {
     _id,
   } = parsedFactory;
 
-  FactoryModel.findOne({ _id }, (err, factory) => {
-    if (!factory) return client.emit('factoryError', 'Factory does not exist');
+  FactoryModel.findOne({ _id }, (err, foundFactory) => {
+    if (!foundFactory) return client.emit('factoryError', 'Factory does not exist');
 
-    if (factory) {
-      const newFactory = _.assign(factory, parsedFactory);
+    const newFactory = _.assign(foundFactory, parsedFactory);
 
-      newFactory.save((err, updatedFactory) => {
-        if (err) return client.emit('factoryError', 'Error occurred while updating factory');
-  
-        logger.info('Emitting updated factory');
-        return client.emit('factoryUpdated', updatedFactory);
-      });
-    }
+    return newFactory.save((saveError, updatedFactory) => {
+      if (saveError) return client.emit('factoryError', 'Error occurred while updating factory');
+
+      logger.info('Emitting updated factory');
+      return client.emit('factoryUpdated', updatedFactory);
+    });
   });
-}
+};
+

@@ -13,7 +13,7 @@ const clientFactory = client => ({
   addFactory: _.partial(addFactoryController, client),
   deleteFactory: _.partial(deleteFactoryController, client),
   updateFactory: _.partial(updateFactoryController, client),
-  allFactoryController: _.partial(allFactoryController, client),
+  allFactory: _.partial(allFactoryController, client),
 });
 
 export default (socketServer, client) => {
@@ -21,11 +21,12 @@ export default (socketServer, client) => {
     addFactory,
     deleteFactory,
     updateFactory,
-    allFactoryController,
-  } = clientFactory(socketServer); 
+    allFactory,
+  } = clientFactory(socketServer);
 
-  client.on('allFactories', allFactoryController);
+  client.on('allFactories', allFactory);
   client.on('addFactory', addFactory);
   client.on('deleteFactory', deleteFactory);
   client.on('updateFactory', updateFactory);
-}
+};
+

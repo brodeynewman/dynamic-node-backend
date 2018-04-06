@@ -2,14 +2,13 @@ import io from 'socket.io';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import express from 'express';
-import logger from './logger';
 import mongoose from 'mongoose';
+import logger from './logger';
 import initiateEvents from './sockets';
 
 dotenv.config();
 
-mongoose.connect(
-  process.env.MONGODB_URI || 
+mongoose.connect(process.env.MONGODB_URI ||
   'mongodb://localhost:27017/passport', () => {
   logger.info('mongoose is connected');
 });

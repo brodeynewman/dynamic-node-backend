@@ -16,19 +16,20 @@ export default (client, factory) => {
       return client.emit('factoryError', 'Factory already exists');
     }
 
-    const factory = new FactoryModel({
-      ...parsedFactory
+    const createdFActory = new FactoryModel({
+      ...parsedFactory,
     });
 
     logger.info('Created new factory');
 
-    factory.save((err) => {
-      if (err) {
+    return createdFActory.save((saveError) => {
+      if (saveError) {
         return client.emit('factoryError', 'Error occurred while saving factory');
       }
 
       logger.info('Emitted newly created factory');
-      return client.emit('factoryAdded', factory);
+      return client.emit('factoryAdded', createdFActory);
     });
   });
-}
+};
+

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 /**
  * MongoDB Factory schema
@@ -10,7 +10,7 @@ const factorySchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true
+    unique: true,
   },
   numberOfChildren: {
     type: Number,
@@ -18,16 +18,16 @@ const factorySchema = new Schema({
   },
   lowerBound: {
     type: Number,
-    required: true
+    required: true,
   },
   upperBound: {
     type: Number,
-    required: true
+    required: true,
   },
   children: {
     type: Array,
     trim: true,
-  }
+  },
 });
 
 const FactoryModel = mongoose.model('factory', factorySchema);
