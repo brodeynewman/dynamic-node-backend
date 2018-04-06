@@ -22,6 +22,7 @@ const server = app.listen(port, () => {
 
 const socketServer = io(server);
 
+socketServer.origins('*:*');
 socketServer.on('connection', (client) => {
   initiateEvents(client);
 });

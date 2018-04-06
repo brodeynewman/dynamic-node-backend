@@ -1,6 +1,9 @@
 import _ from 'lodash';
 import FactoryModel from '../db/models/factory';
 
+/**
+ * Adds a factory, and emites a successful response
+ */
 export default (client, factory) => {
   const parsedFactory = JSON.parse(factory);
   const factoryName = _.get(parsedFactory, 'name', '');
@@ -21,7 +24,7 @@ export default (client, factory) => {
         return client.emit('factoryError', 'Error occurred while saving factory');
       }
 
-      return client.emit('success', factory);
+      return client.emit('factoryAdded', factory);
     });
   });
 }

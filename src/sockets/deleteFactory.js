@@ -1,5 +1,8 @@
 import FactoryModel from '../db/models/factory';
 
+/**
+ * Deletes a factory, and emites a successful response
+ */
 export default (client, id) => {
   FactoryModel.findOne({ _id: id }, (err, factory) => {
     if (err) return client.emit(
@@ -13,7 +16,7 @@ export default (client, id) => {
       FactoryModel.remove({ _id: id }, (err) => {
         if (err) return client.emit('factoryError', 'An error occurred while deleting factory');
     
-        return client.emit('success', 'Factory successfully removed');
+        return client.emit('factoryDeleted', 'Factory successfully removed');
       });
     }
   });

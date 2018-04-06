@@ -1,6 +1,9 @@
 import _ from 'lodash';
 import FactoryModel from '../db/models/factory';
 
+/**
+ * Updates a factory, and emits a result
+ */
 export default (client, factory) => {
   const parsedFactory = JSON.parse(factory);
   const { 
@@ -16,7 +19,7 @@ export default (client, factory) => {
       newFactory.save((err, savedFactory) => {
         if (err) return client.emit('factoryError', 'Error occurred while updating factory');
   
-        return client.emit('success', savedFactory);
+        return client.emit('factoryUpdated', savedFactory);
       });
     }
   });
